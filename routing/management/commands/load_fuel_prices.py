@@ -1,8 +1,10 @@
 import csv
-import time
+import io
 import requests
 from django.core.management.base import BaseCommand
 from routing.models import TruckStop
+
+US_CITIES_URL = 'https://raw.githubusercontent.com/kelvins/US-Cities-Database/main/csv/us_cities.csv'
 
 
 class Command(BaseCommand):
@@ -10,43 +12,26 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument('csv_file', type=str, help='Path to the fuel prices CSV file')
-        parser.add_argument('--skip-geocode', action='store_true', help='Skip geocoding (load CSV data only)')
 
-    def geocode(self, address, city, state):
-        query = f"{address}, {city}, {state}, USA"
-        url = 'https://nominatim.openstreetmap.org/search'
-        params = {
-            'q': query,
-            'format': 'json',
-            'limit': 1,
-            'countrycodes': 'us',
-        }
-        headers = {'User-Agent': 'FuelRouteOptimizer/1.0'}
-        try:
-            resp = requests.get(url, params=params, headers=headers, timeout=10)
-            resp.raise_for_status()
-            results = resp.json()
-            if results:
-                return float(results[0]['lat']), float(results[0]['lon'])
-        except (requests.RequestException, ValueError, KeyError, IndexError):
-            pass
-
-        # Fallback: try city + state only
-        params['q'] = f"{city}, {state}, USA"
-        try:
-            resp = requests.get(url, params=params, headers=headers, timeout=10)
-            resp.raise_for_status()
-            results = resp.json()
-            if results:
-                return float(results[0]['lat']), float(results[0]['lon'])
-        except (requests.RequestException, ValueError, KeyError, IndexError):
-            pass
-
-        return None, None
+    def build_city_lookup(self):
+        self.stdout.write("Downloading US cities coordinates database...")
+        resp = requests.get(US_CITIES_URL, timeout=30)
+        resp.raise_for_status()
+        lookup = {}
+        reader = csv.DictReader(io.StringIO(resp.text))
+        for row in reader:
+            city = row['CITY'].strip().upper()
+            state = row['STATE_CODE'].strip().upper()
+            key = (city, state)
+            if key not in lookup:
+                lookup[key] = (float(row['LATITUDE']), float(row['LONGITUDE']))
+        self.stdout.write(f"Loaded {len(lookup)} city coordinates")
+        return lookup
 
     def handle(self, *args, **options):
         csv_file = options['csv_file']
-        skip_geocode = options['skip_geocode']
+
+        city_lookup = self.build_city_lookup()
 
         # Read CSV and group by opis_id, keeping cheapest price
         stops = {}
@@ -70,13 +55,20 @@ class Command(BaseCommand):
 
         TruckStop.objects.all().delete()
 
+        matched = 0
+        unmatched = 0
         total = len(stops)
+
         for i, (opis_id, data) in enumerate(stops.items(), 1):
-            lat, lon = None, None
-            if not skip_geocode:
-                lat, lon = self.geocode(data['address'], data['city'], data['state'])
-                # Nominatim rate limit: 1 request per second
-                time.sleep(1.1)
+            key = (data['city'].upper(), data['state'].upper())
+            coords = city_lookup.get(key)
+            lat = coords[0] if coords else None
+            lon = coords[1] if coords else None
+
+            if coords:
+                matched += 1
+            else:
+                unmatched += 1
 
             TruckStop.objects.create(
                 opis_id=data['opis_id'],
@@ -90,7 +82,5 @@ class Command(BaseCommand):
                 longitude=lon,
             )
 
-            if i % 50 == 0 or i == total:
-                self.stdout.write(f"Processed {i}/{total} stops")
-
+        self.stdout.write(f"Geocoded: {matched}, Unmatched: {unmatched}")
         self.stdout.write(self.style.SUCCESS(f"Successfully loaded {total} truck stops"))

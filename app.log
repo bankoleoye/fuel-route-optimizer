@@ -1,0 +1,46 @@
+2026-10-09 08:39:01,557 INFO routing.views Route request received: {'start': 'Denver, CO', 'finish': 'Kansas City, MO'}
+2026-10-09 08:39:01,557 INFO routing.services Geocoding location: Denver, CO
+2026-10-09 08:39:02,942 INFO routing.services Geocoded 'Denver, CO' -> (39.7392364, -104.984862)
+2026-10-09 08:39:02,944 INFO routing.services Geocoding location: Kansas City, MO
+2026-10-09 08:39:03,584 INFO routing.services Geocoded 'Kansas City, MO' -> (39.100105, -94.5781416)
+2026-10-09 08:39:03,585 INFO routing.services Requesting route from OSRM: -104.984862,39.7392364 -> -94.5781416,39.100105
+2026-10-09 08:39:04,160 INFO routing.services Route received: 603.53 miles, 5469 geometry points
+2026-10-09 08:39:04,172 INFO routing.services Bounding box filter: 127 candidate stops from DB
+2026-10-09 08:39:04,217 INFO routing.services Found 75 truck stops within 20-mile corridor
+2026-10-09 08:39:04,217 INFO routing.services Fuel stop selected: PWI #574 (Bunker Hill, KS) at mile 371.37 — $2.959/gal, 37.14 gallons, $109.89
+2026-10-09 08:39:04,217 INFO routing.services Optimization complete: 1 stops, total fuel cost $178.59
+2026-10-09 08:39:04,217 INFO routing.views Route request completed in 2.66s: Denver, CO -> Kansas City, MO (603.53 miles, 1 stops, $178.59)
+2026-10-09 09:18:22,422 INFO routing.views Route request received: {'start': 'New York, NY', 'finish': 'Los Angeles, CA'}
+2026-10-09 09:18:22,423 INFO routing.services Geocoding location: New York, NY
+2026-10-09 09:18:22,935 INFO routing.services Geocoded 'New York, NY' -> (40.7127281, -74.0060152)
+2026-10-09 09:18:22,935 INFO routing.services Geocoding location: Los Angeles, CA
+2026-10-09 09:18:23,767 INFO routing.services Geocoded 'Los Angeles, CA' -> (34.0536923, -118.2427676)
+2026-10-09 09:18:23,768 INFO routing.services Requesting route from OSRM: -74.0060152,40.7127281 -> -118.2427676,34.0536923
+2026-10-09 09:18:24,972 INFO routing.services Route received: 2794.02 miles, 34639 geometry points
+2026-10-09 09:18:24,995 INFO routing.services Bounding box filter: 3507 candidate stops from DB
+2026-10-09 09:18:25,818 INFO routing.services Found 611 truck stops within 20-mile corridor
+2026-10-09 09:18:25,819 INFO routing.services Fuel stop selected: SHEETZ #639 (Youngstown, OH) at mile 390.32 — $3.059/gal, 39.03 gallons, $119.40
+2026-10-09 09:18:25,819 INFO routing.services Fuel stop selected: CASEYS #3686 (Utica, IL) at mile 854.52 — $2.969/gal, 46.42 gallons, $137.82
+2026-10-09 09:18:25,819 INFO routing.services Fuel stop selected: AKAL TRAVEL CENTER (Waco, NE) at mile 1337.24 — $2.799/gal, 48.27 gallons, $135.11
+2026-10-09 09:18:25,819 INFO routing.services Fuel stop selected: PWI #525 (Watkins, CO) at mile 1758.50 — $3.139/gal, 42.13 gallons, $132.23
+2026-10-09 09:18:25,819 INFO routing.services Fuel stop selected: MAVERIK COUNTRY STORE #693 (Green River, UT) at mile 2114.84 — $3.282/gal, 35.63 gallons, $116.96
+2026-10-09 09:18:25,819 INFO routing.services Fuel stop selected: Maverik #674 (North Las Vegas, NV) at mile 2500.35 — $3.282/gal, 38.55 gallons, $126.54
+2026-10-09 09:18:25,819 INFO routing.services Optimization complete: 6 stops, total fuel cost $864.45
+2026-10-09 09:18:25,819 INFO routing.views Route request completed in 3.40s: New York, NY -> Los Angeles, CA (2794.02 miles, 6 stops, $864.45)
+2026-10-09 09:19:32,730 INFO routing.views Route request received: {'start': 'New York, NY', 'finish': 'Los Angeles, CA'}
+2026-10-09 09:19:32,731 INFO routing.services Geocoding location: New York, NY
+2026-10-09 09:19:32,859 INFO routing.services Geocoded 'New York, NY' -> (40.7127281, -74.0060152)
+2026-10-09 09:19:32,860 INFO routing.services Geocoding location: Los Angeles, CA
+2026-10-09 09:19:32,992 INFO routing.services Geocoded 'Los Angeles, CA' -> (34.0536923, -118.2427676)
+2026-10-09 09:19:32,993 INFO routing.services Requesting route from OSRM: -74.0060152,40.7127281 -> -118.2427676,34.0536923
+2026-10-09 09:19:33,774 INFO routing.services Route received: 2794.02 miles, 34639 geometry points
+2026-10-09 09:19:33,797 INFO routing.services Bounding box filter: 3507 candidate stops from DB
+2026-10-09 09:19:34,647 INFO routing.services Found 611 truck stops within 20-mile corridor
+2026-10-09 09:19:34,648 INFO routing.services Fuel stop selected: SHEETZ #639 (Youngstown, OH) at mile 390.32 — $3.059/gal, 39.03 gallons, $119.40
+2026-10-09 09:19:34,648 INFO routing.services Fuel stop selected: CASEYS #3686 (Utica, IL) at mile 854.52 — $2.969/gal, 46.42 gallons, $137.82
+2026-10-09 09:19:34,648 INFO routing.services Fuel stop selected: AKAL TRAVEL CENTER (Waco, NE) at mile 1337.24 — $2.799/gal, 48.27 gallons, $135.11
+2026-10-09 09:19:34,648 INFO routing.services Fuel stop selected: PWI #525 (Watkins, CO) at mile 1758.50 — $3.139/gal, 42.13 gallons, $132.23
+2026-10-09 09:19:34,648 INFO routing.services Fuel stop selected: MAVERIK COUNTRY STORE #693 (Green River, UT) at mile 2114.84 — $3.282/gal, 35.63 gallons, $116.96
+2026-10-09 09:19:34,648 INFO routing.services Fuel stop selected: Maverik #674 (North Las Vegas, NV) at mile 2500.35 — $3.282/gal, 38.55 gallons, $126.54
+2026-10-09 09:19:34,648 INFO routing.services Optimization complete: 6 stops, total fuel cost $864.45
+2026-10-09 09:19:34,648 INFO routing.views Route request completed in 1.92s: New York, NY -> Los Angeles, CA (2794.02 miles, 6 stops, $864.45)
